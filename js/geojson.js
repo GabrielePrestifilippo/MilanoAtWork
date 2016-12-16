@@ -4,6 +4,7 @@ define(function () {
         this.layerManager = layerManager;
         var layers = [];
         this.layers = layers;
+        this.mode = "cityFocus";
 
     };
 
@@ -16,6 +17,7 @@ define(function () {
         } else {
             var polygonLayer = new WorldWind.RenderableLayer(label + " ");
         }
+        polygonLayer.pickEnabled = false;
         var polygonGeoJSON = new WorldWind.GeoJSONParser(resourcesUrl + name + ".geojson");
 
         var placemarkAttributes = new WorldWind.PlacemarkAttributes(null);
@@ -38,9 +40,9 @@ define(function () {
             else if (geometry.isPolygonType() || geometry.isMultiPolygonType()) {
                 configuration.attributes = new WorldWind.ShapeAttributes(null);
                 configuration.attributes.outlineWidth = 0.45;
-                configuration.attributes.interiorColor = new WorldWind.Color(0,0,0,0);
+                configuration.attributes.interiorColor = new WorldWind.Color(0, 0, 0, 0);
 
-                configuration.attributes.outlineColor = new WorldWind.Color(0,0,0,0.8);
+                configuration.attributes.outlineColor = new WorldWind.Color(0, 0, 0, 0.8);
             }
 
             return configuration;
@@ -65,6 +67,53 @@ define(function () {
             console.log("No vector available" + e);
         }
 
+    };
+    GeoJson.prototype.milanoCallback = function () {
+        var self = this;
+        self.layerManager.synchronizeLayerList();
+
+        var event = jQuery.Event("change");
+        event.value = {newValue: 1956};
+        milanoSlider.trigger(event);
+
+
+    };
+    GeoJson.prototype.bigMilano = function () {
+
+        var callback = function (layer) {
+            wwd.addLayer(layer);
+        };
+        var polygonLayer = new WorldWind.RenderableLayer("Milano Changes");
+        $.ajax({
+            url: "geojson/bigmilano.geojson",
+            success: function (res) {
+                var polygonGeoJSON = new WorldWind.GeoJSONParser(JSON.stringify(res));
+                polygonGeoJSON.load(callback, shapeConfigurationCallback, polygonLayer);
+            }
+        });
+
+        polygonLayer.enabled = true;
+        polygonLayer.pickEnabled = true;
+        polygonLayer.opacity = 0.9;
+        polygonLayer.raster = false;
+        polygonLayer.name = "bigMilano";
+        this.bigMilanoJson = polygonLayer;
+
+        var shapeConfigurationCallback = function (geometry, properties) {
+            var configuration = {};
+
+            if (geometry.isPolygonType() || geometry.isMultiPolygonType()) {
+                configuration.attributes = new WorldWind.ShapeAttributes(null);
+                configuration.attributes.outlineWidth = 0.0;
+                configuration.attributes.interiorColor = new WorldWind.Color(
+                    0, 0, 0, 0);
+
+                configuration.attributes.properties = properties;
+                configuration.attributes.drawOutline = false;
+            }
+
+            return configuration;
+        };
     };
 
     GeoJson.prototype.milano = function (callback) {
@@ -106,6 +155,123 @@ define(function () {
         wwd.addLayer(polygonLayer);
         // this.layerManager.synchronizeLayerList();
 
+    };
+
+    GeoJson.prototype.showConstruction = function () {
+        this.timeSites.enabled = true;
+        this.bigMilanoJson.enabled = false;
+    };
+
+
+    GeoJson.prototype.hideConstruction = function () {
+        this.timeSites.enabled = false;
+    };
+    GeoJson.prototype.addConstruction = function () {
+        var callback = function (layer) {
+            wwd.addLayer(layer);
+            self.filterRenderables(new Date(2013, 7, 4), new Date(2013, 8, 7));
+            var annotationsLayer = new WorldWind.RenderableLayer("Annotations");
+            var annotations = [],
+                annotation,
+                annotationAttributes;
+            for (var z = 0; z < layer.renderables.length; z++) {
+                annotationAttributes = new WorldWind.AnnotationAttributes(null);
+                annotationAttributes.cornerRadius = 14;
+                annotationAttributes.backgroundColor = new WorldWind.Color(30,30,30,1);
+                annotationAttributes.textColor = new WorldWind.Color(1, 1, 1, 1);
+                annotationAttributes.drawLeader = true;
+                annotationAttributes.leaderGapWidth = 40;
+                annotationAttributes.leaderGapHeight = 30;
+                annotationAttributes.opacity = 1;
+                annotationAttributes.scale = 1;
+                annotationAttributes.width = 200;
+                annotationAttributes.height = 100;
+                annotationAttributes.textAttributes.color = WorldWind.Color.WHITE;
+                annotationAttributes.insets = new WorldWind.Insets(10, 10, 10, 10);
+
+                annotation = new WorldWind.Annotation(layer.renderables[z].position, annotationAttributes);
+                annotation.label = layer.renderables[z].attributes.properties.ESITO_PRAT;
+                annotations.push(annotation);
+                annotation.enabled=false;
+                layer.renderables[z].annotation=annotation;
+                annotationsLayer.addRenderable(annotation);
+            }
+
+            wwd.addLayer(annotationsLayer);
+        };
+        var self = this;
+        $.ajax({
+            url: "geojson/cantieri.geojson",
+            success: function (res) {
+                self.JSONgrid = JSON.stringify(res);
+                var polygonGeoJSON = new WorldWind.GeoJSONParser(JSON.stringify(res));
+                polygonGeoJSON.load(callback, shapeConfigurationCallback, polygonLayer);
+            }
+        });
+
+        var polygonLayer = new WorldWind.RenderableLayer("Construction Sites");
+
+
+
+        var shapeConfigurationCallback = function (geometry, properties) {
+            var placemarkAttributes = new WorldWind.PlacemarkAttributes(null);
+            placemarkAttributes.imageScale = 0.15;
+            placemarkAttributes.eyeDistanceScaling = true;
+            placemarkAttributes.eyeDistanceScalingThreshold = 1e5;
+            placemarkAttributes.imageOffset = new WorldWind.Offset(
+                WorldWind.OFFSET_FRACTION, 0.3,
+                WorldWind.OFFSET_FRACTION, 0.0);
+
+            placemarkAttributes.labelAttributes.offset = new WorldWind.Offset(
+                WorldWind.OFFSET_FRACTION, 0.5,
+                WorldWind.OFFSET_FRACTION, 1.0);
+
+            placemarkAttributes.labelAttributes.color = WorldWind.Color.YELLOW;
+            placemarkAttributes.drawLeaderLine = true;
+            placemarkAttributes.imageSource = "images/placemark.png";
+
+
+            var highlightAttributes = new WorldWind.PlacemarkAttributes(placemarkAttributes);
+            highlightAttributes.imageScale = 0.35;
+
+
+            var configuration = {};
+
+            configuration.attributes = new WorldWind.PlacemarkAttributes(placemarkAttributes);
+            configuration.highlightAttributes = highlightAttributes;
+            //configuration.name = "xxx";
+            configuration.eyeDistanceScaling = true;
+            configuration.eyeDistanceScalingThreshold = 1000;
+
+            configuration.attributes.properties = properties;
+
+            return configuration;
+        };
+
+        polygonLayer.enabled = false;
+        polygonLayer.pickEnabled = true;
+        polygonLayer.opacity = 1;
+        polygonLayer.raster = false;
+        polygonLayer.name = "construction";
+        this.timeSites = polygonLayer;
+
+
+    };
+
+    GeoJson.prototype.filterRenderables = function (date1, date2) {
+        var count = 0;
+        this.timeSites.renderables.forEach(function (ren) {
+            var start = new Date(ren.attributes.properties["INIZIO_LAV"]);
+            var end = new Date(ren.attributes.properties["CHIUSURA_P"]);
+            if (end < date1 || start > date2) {
+                ren.enabled = false;
+            } else {
+                ren.enabled = true;
+                count++;
+            }
+
+        });
+        console.log(count);
     };
 
     GeoJson.prototype.getColor = function (weight, inputColors) {

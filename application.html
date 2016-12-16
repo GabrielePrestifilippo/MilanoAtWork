@@ -3,10 +3,13 @@
 <head>
 
     <script src="js/jquery-3.1.0.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/jQDateRangeSlider-min.js"></script>
+
     <script src="js/bootstrap-slider.js"></script>
+
     <script src="worldwindlib.js" type="text/javascript"></script>
     <script>var application = true;</script>
-
 
 
 </head>
@@ -19,6 +22,7 @@
 <!-- Latest compiled JavaScript -->
 <script src="js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="css/progress.css">
+<link rel="stylesheet" href="css/iThing.css">
 <link rel="stylesheet" href="css/jquery-ui.min.css">
 <link rel="stylesheet" href="css/main.css">
 <link rel="stylesheet" href="css/bootstrap-slider.min.css">
@@ -33,7 +37,7 @@
 
             <div class="inside" style="color:#333">
                 <p> Hi there! <br>
-                    Rate the topic below between 0 to 100 points, to find the best place for you to live in!
+                    Find your place or check the changes
                 </p>
             </div>
 
@@ -45,7 +49,7 @@
 </div>
 <div class="container" id="c_two">
 
-    <div class="bigText"  style="color:#333" id="criteria_name">
+    <div class="bigText" style="color:#333" id="criteria_name">
         Criteria for the city of Milan, Italy:
     </div>
 
@@ -58,13 +62,22 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a title=" assign points (from 0 to 100) according to how near you want to live to the city's service as you see below" data-toggle="collapse"
+                            <a title=" assign points (from 0 to 100) according to how near you want to live to the city's service as you see below"
+                               data-toggle="collapse"
                                href="#collapse1">Near to Services</a>
                         </h4>
                     </div>
                     <div id="collapse1" class="panel-collapse collapse">
                         <div class="panel-body">
 
+                            <div class="name_slider" id="ParkingArea">
+                                <label>Parking</label>
+                                <div class="slider" id="parking"></div>
+                            </div>
+                            <div class="name_slider" id="SportArea">
+                                <label>Sport</label>
+                                <div class="slider" id="sport200"></div>
+                            </div>
                             <div class="name_slider" id="ATMs">
                                 <label>ATMs</label>
                                 <div class="slider" id="atms200"></div>
@@ -116,7 +129,8 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a title="assign points (from 0 to 100) according to how near you want to live to the city's green area as you see below" data-toggle="collapse" href="#collapse2">Near to
+                            <a title="assign points (from 0 to 100) according to how near you want to live to the city's green area as you see below"
+                               data-toggle="collapse" href="#collapse2">Near to
                                 Nature</a>
                         </h4>
                     </div>
@@ -149,7 +163,9 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse" title="assign points (from 0 to 100) according to how near you want to live to the city's education establishments as you see below" href="#collapse3">Near to
+                            <a data-toggle="collapse"
+                               title="assign points (from 0 to 100) according to how near you want to live to the city's education establishments as you see below"
+                               href="#collapse3">Near to
                                 Education</a>
                         </h4>
                     </div>
@@ -186,7 +202,9 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse" title="assign points (from 0 to 100) according to how near you want to live to the city's public transportation stops, as you see below" href="#collapse4">Near to
+                            <a data-toggle="collapse"
+                               title="assign points (from 0 to 100) according to how near you want to live to the city's public transportation stops, as you see below"
+                               href="#collapse4">Near to
                                 Transportation</a>
                         </h4>
                     </div>
@@ -212,7 +230,8 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a title="assign points (from 0 to 100) according to your preference on the city's areas with good air quality, low - medium or high temperatures (they represent the average warmer or colder areas within the city during a year)" data-toggle="collapse" href="#collapse5">Environmental
+                            <a title="assign points (from 0 to 100) according to your preference on the city's areas with good air quality, low - medium or high temperatures (they represent the average warmer or colder areas within the city during a year)"
+                               data-toggle="collapse" href="#collapse5">Environmental
                                 conditions</a>
                         </h4>
                     </div>
@@ -237,7 +256,6 @@
                             </div>
 
 
-
                         </div>
 
                     </div>
@@ -248,7 +266,8 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a title="assign points (from 0 to 100) according to your preference on the city's main land use types, as you see below" data-toggle="collapse" href="#collapse6">Landuse Type</a>
+                            <a title="assign points (from 0 to 100) according to your preference on the city's main land use types, as you see below"
+                               data-toggle="collapse" href="#collapse6">Landuse Type</a>
                         </h4>
                     </div>
                     <div id="collapse6" class="panel-collapse collapse">
@@ -278,7 +297,8 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a title="assign points (from 0 to 100) according to your preference on the city's low - medium - high populated areas" data-toggle="collapse" href="#collapse7">Population
+                            <a title="assign points (from 0 to 100) according to your preference on the city's low - medium - high populated areas"
+                               data-toggle="collapse" href="#collapse7">Population
                                 Density</a>
                         </h4>
                     </div>
@@ -306,23 +326,34 @@
             </div>
 
         </div>
-        <div class="bigCentral">
-            <button id="submitQuery" type="button" class="btn btn-warning btn-lg">Find Your Place!</button>
-        </div>
+
     </div>
 
+</div>
+<div class="container" id="middlePart">
+    <div class="bigCentral">
+        <button id="submitQuery" type="button" class="btn btn-warning btn-lg">Start!</button>
+        <button id="cityFocus" type="button" class="btn btn-warning btn-lg">Find your place</button>
+        <button id="getEvolution" type="button" class="btn btn-warning btn-lg">See the Evolution</button>
+        <button id="getConstruction" type="button" class="btn btn-warning btn-lg construction">Construction Sites</button>
+    </div>
+    <div id="imageTime">
+    </div>
+    <div id="constructionTime">
+    </div>
 </div>
 <div class="container" id="c_three">
 
     <div class="col-sm-3">
         <br>
-        <!--
-        <h4>View Mode </h4>
-        <div class="dropdown" id="projectionDropdown">
+
+        <div id="constructionMenu">
         </div>
 
+        <div id="bigMilanoMenu">
+
+        </div>
         <br>
-        -->
         <button id="expandRaster" class="btn btn-info btn-block dropdown-toggle" type="button" data-toggle="dropdown">
             Criterion Map<span
                 class="caret"></span></button>
@@ -351,6 +382,14 @@
             <div id="criteria_selected">
             </div>
         </div>
+        <br>
+        <button style="display:none" class="btn btn-warning btn-lg" id="showChanges">Show Changes</button>
+        <button style="display:none" class="btn btn-warning btn-lg" id="hideChanges">Hide Changes</button>
+        <br>  <br>
+        <button style="display:none" class="btn btn-warning btn-lg" id="showConstruction">Show Construction sites</button>
+        <button style="display:none" class="btn btn-warning btn-lg" id="hideConstruction">Hide Construction sites</button>
+        <br>
+        <br>
         <button style="display:none" class="btn btn-warning btn-lg" id="reset">Reset</button>
         <br>
     </div>
@@ -378,6 +417,15 @@
             <div class="ls">90-100%</div>
             <div class="sq sq10"></div>
         </div>
+        <div id="constructionLegend">
+            <span>Legend</span><br>
+            <div class="ls">0-10%</div>
+            <div class="sq cq1"></div>
+            <div class="ls">10-20%</div>
+            <div class="sq cq2"></div>
+            <div class="ls">20-30%</div>
+            <div class="sq cq3"></div>
+        </div>
         <canvas id="canvasOne" width="1000" height="1000" style="width: 100%; height: 65%">
             Your browser does not support HTML5 Canvas.
         </canvas>
@@ -389,18 +437,6 @@
 
 </div>
 
-<!--<div class="container" id="c_four">
-
-    <h2>Best Places for you:</h2><br>
-    <div id="best_result">
-        <div class="name_result">Porta Vercellina</div>
-        <div id="r1" class="result_score"></div>
-
-        <div class="name_result">Porta Romana</div>
-        <div id="r2" class="result_score"></div>
-
-    </div>
-</div>-->
 <div class="container" id="footer">
 
 </div>

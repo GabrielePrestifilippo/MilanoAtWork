@@ -49,24 +49,33 @@ body {
 }
 
 #c_one_home_app {
-    background-color: #f6f6f6; /*#54a4ff;*/
-    padding: 60px;
+    background-color: #f6f6f6;
+    padding: 30px;
+    padding-bottom: 5px;
     color: white;
 }
-
 
 #c_two {
     background-color: #f6f6f6; /*#2ad252;*/
     text-align: center;
-    padding-bottom: 80px;
+    padding-bottom: 50px;
     color:#333;
+    display: none;
 
+}
+
+#middlePart {
+    background-color: #f6f6f6; /*#2ad252;*/
+    text-align: center;
+    padding-bottom: 10px;
+    color:#333;
 }
 
 #c_three {
     background-color: #f6f6f6;
     text-align: center;
     padding-right: 0px;
+    padding-left: 10px;
 }
 
 #c_four {
@@ -151,6 +160,17 @@ div#intro {
     float: left;
 }
 
+.name_slider {
+    font-weight: bold;
+    margin: 10px;
+    float: left;
+}
+
+.col-sm-3{
+
+     padding-right: 5px;
+    padding-left: 5px;
+}
 .slider .ui-slider-range {
     background: #54a4ff;
 }
@@ -162,7 +182,30 @@ div#intro {
     border-radius: 20px;
     height: 15px;
 }
-
+div#timeMilano {
+    padding-left: 10px;
+    padding-top: 10px;
+}
+.slider_milano {
+    float: left;
+    clear: left;
+    width: 150px;
+    border-radius: 20px;
+    height: 15px;
+}
+.slider_cantieri {
+    float: left;
+    clear: left;
+    width: 100%;
+    border-radius: 20px;
+}
+#constructionMenu{
+    display: none;
+}
+#bigMilanoMenu{
+    height: 120px;
+    display: none;
+}
 label {
     color: #333;
     font-size: 16px;
@@ -311,7 +354,9 @@ a.nav-link:hover {
     margin-top: 50px;
 
 }
-
+#submitQuery{
+    display: none;
+}
 .name_result {
     font-size: 24px;
     float: left;
@@ -428,6 +473,16 @@ div#legend {
     background-color: #f6f6f6;
     right: 0px;
     border-bottom-left-radius: 7px;
+    display: none;
+}
+div#constructionLegend {
+    width: 120px;
+    float: right;
+    position: absolute;
+    background-color: #f6f6f6;
+    right: 0px;
+    border-bottom-left-radius: 7px;
+    display: none;
 }
 .ls{
     float:left;
@@ -505,4 +560,40 @@ div#legend {
 #headerLogos img{
    max-height: 120px;
     padding-right:20px;
+}
+.slider.slider-horizontal {
+    margin: 10px;
+}
+#timeMilano .slider.slider-horizontal {
+    width: 90%;
+}
+
+#imageTime{
+    margin-top:40px;
+    margin-bottom:20px;
+    background-color: #efefef;
+    border-radius: 8px;
+    display: none;
+    text-align: center;
+}
+#constructionTime{
+    margin-top:40px;
+    margin-bottom:20px;
+    background-color: #efefef;
+    border-radius: 8px;
+    display: none;
+    text-align: center;
+    width:80%;
+    margin-left: 10%;
+}
+
+.timeImage{
+    width:28%;
+    padding:2%;
+    maegin:3%;
+    float:left;
+}
+.timeImage img{
+    border:1px solid #ccc;
+    width:100%;
 }

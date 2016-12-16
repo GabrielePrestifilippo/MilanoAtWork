@@ -3,19 +3,17 @@ $(function () {
     $("#footer").load("footer.html");
 });
 var application;
+var UI;
 require(['js/worldwind', 'js/UserInterface', 'js/geojson'],
     function (worldwind, UserInterface, GeoJson) {
 
         if (application) {
-
+            var self=this;
             worldwind = new worldwind();
             this.geojson = new GeoJson(worldwind.layerManager);
-            var UserInterface = new UserInterface(worldwind.layerManager, this.geojson);
-            UserInterface.listeners();
-
+            UI = new UserInterface(worldwind.layerManager, this.geojson);
+            UI.listeners();
             addOSM(worldwind.layerManager, geojson);
-
-
             function addOSM(layerManager, geojson) {
                 var request = new XMLHttpRequest();
                 request.open("GET", "http://ows.terrestris.de/osm/service?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetCapabilities", true);
@@ -37,6 +35,8 @@ require(['js/worldwind', 'js/UserInterface', 'js/geojson'],
                             geojson.milano.call(geojson);
                         }
                         geojson.add("Neighborhoods", "Neighborhoods", 1, callback);
+                        self.geojson.bigMilano();
+                        self.geojson.addConstruction();
 
                     }
 
@@ -44,6 +44,8 @@ require(['js/worldwind', 'js/UserInterface', 'js/geojson'],
 
                 request.send(null);
             }
+
+
         }
     });
 
