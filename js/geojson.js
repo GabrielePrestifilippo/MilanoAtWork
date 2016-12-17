@@ -78,6 +78,123 @@ define(function () {
 
 
     };
+
+    GeoJson.prototype.crowdInfo = function () {
+        var self = this;
+        var callback = function (layer) {
+            wwd.addLayer(layer);
+            self.validateColor();
+
+        };
+        var polygonLayer = new WorldWind.RenderableLayer("Milano Validation Grid");
+        $.ajax({
+            url: "geojson/milano_grid.json",
+            success: function (res) {
+                var polygonGeoJSON = new WorldWind.GeoJSONParser(JSON.stringify(res));
+                polygonGeoJSON.load(callback, shapeConfigurationCallback, polygonLayer);
+            }
+        });
+
+        polygonLayer.enabled = false;
+        polygonLayer.pickEnabled = true;
+        polygonLayer.opacity = 0.9;
+        polygonLayer.raster = false;
+        polygonLayer.name = "Griglia validazione";
+        this.validationGrid = polygonLayer;
+
+        var shapeConfigurationCallback = function (geometry, properties) {
+            var configuration = {};
+
+            if (geometry.isPolygonType() || geometry.isMultiPolygonType()) {
+                configuration.attributes = new WorldWind.ShapeAttributes(null);
+                configuration.attributes.outlineWidth = 1.0;
+                configuration.attributes.interiorColor = new WorldWind.Color(
+                    0, 0, 0, 0);
+                configuration.attributes.outlineColor = new WorldWind.Color(
+                    0, 0, 0, 0);
+
+                configuration.attributes.properties = properties;
+                configuration.attributes.drawOutline = true;
+            }
+
+            return configuration;
+        };
+    };
+
+
+    GeoJson.prototype.placemarksFromPoints = function () {
+
+
+        var point = {crowd: 1, valid: 3};
+
+        var placemark,
+            placemarkAttributes = new WorldWind.PlacemarkAttributes(null),
+            highlightAttributes,
+            placemarkLayer = new WorldWind.RenderableLayer("Cantieri Utenti"),
+            latitude = 45.465422,
+            longitude = 9.185924;
+
+        placemarkLayer.name = ""
+        placemarkAttributes.imageScale = 0.4;
+        placemarkAttributes.imageOffset = new WorldWind.Offset(
+            WorldWind.OFFSET_FRACTION, 0.3,
+            WorldWind.OFFSET_FRACTION, 0.0);
+        placemarkAttributes.imageColor = WorldWind.Color.WHITE;
+        placemarkAttributes.labelAttributes.offset = new WorldWind.Offset(
+            WorldWind.OFFSET_FRACTION, 0.5,
+            WorldWind.OFFSET_FRACTION, 1.0);
+        placemarkAttributes.labelAttributes.color = WorldWind.Color.YELLOW;
+        placemarkAttributes.drawLeaderLine = true;
+        placemarkAttributes.leaderLineAttributes.outlineColor = WorldWind.Color.RED;
+
+
+        placemark = new WorldWind.Placemark(new WorldWind.Position(latitude, longitude, 0), true, null);
+        placemark.altitudeMode = WorldWind.RELATIVE_TO_GROUND;
+
+        placemarkAttributes = new WorldWind.PlacemarkAttributes(placemarkAttributes);
+        placemarkAttributes.imageSource = "images/eye.png";
+
+        placemark.attributes = placemarkAttributes;
+        placemark.attributes.properties = point;
+
+        highlightAttributes = new WorldWind.PlacemarkAttributes(placemarkAttributes);
+        highlightAttributes.imageScale = 0.5;
+        placemark.highlightAttributes = highlightAttributes;
+        placemarkLayer.addRenderable(placemark);
+
+        this.validPlacemark = placemarkLayer;
+        placemarkLayer.enabled = false;
+        wwd.addLayer(placemarkLayer);
+    };
+    GeoJson.prototype.validateColor = function () {
+        var grid = this.validationGrid;
+        var points = this.validPlacemark;
+        var numCantieri = [];
+
+        grid.renderables.forEach(function (ren) {
+            var bb = ren._boundaries;
+
+            points.renderables.forEach(function (p) {
+
+                var topleft = bb[2];
+                var bottomright = bb[0];
+
+                if (p.position.latitude <= topleft.latitude && p.position.latitude >= bottomright.latitude && p.position.longitude >= topleft.longitude && p.position.longitude <= bottomright.longitude) {
+                    if (ren.numCantieri) {
+                        ren.numCantieri++;
+                    } else {
+                        ren.numCantieri = 1;
+                    }
+
+                }
+            });
+        });
+        grid.renderables.forEach(function (ren) {
+            ren._attributes._outlineColor = new WorldWind.Color(0, 255, 0, 1);
+        });
+
+    };
+
     GeoJson.prototype.bigMilano = function () {
 
         var callback = function (layer) {
@@ -160,46 +277,23 @@ define(function () {
     GeoJson.prototype.showConstruction = function () {
         this.timeSites.enabled = true;
         this.bigMilanoJson.enabled = false;
+        this.validationGrid.enabled = true;
+        this.validPlacemark.enabled = true;
     };
 
 
     GeoJson.prototype.hideConstruction = function () {
         this.timeSites.enabled = false;
+        this.validationGrid.enabled = false;
+        this.validPlacemark.enabled = false;
     };
     GeoJson.prototype.addConstruction = function () {
+        var self = this;
         var callback = function (layer) {
             wwd.addLayer(layer);
             self.filterRenderables(new Date(2013, 7, 4), new Date(2013, 8, 7));
-            var annotationsLayer = new WorldWind.RenderableLayer("Annotations");
-            var annotations = [],
-                annotation,
-                annotationAttributes;
-            for (var z = 0; z < layer.renderables.length; z++) {
-                annotationAttributes = new WorldWind.AnnotationAttributes(null);
-                annotationAttributes.cornerRadius = 14;
-                annotationAttributes.backgroundColor = new WorldWind.Color(30,30,30,1);
-                annotationAttributes.textColor = new WorldWind.Color(1, 1, 1, 1);
-                annotationAttributes.drawLeader = true;
-                annotationAttributes.leaderGapWidth = 40;
-                annotationAttributes.leaderGapHeight = 30;
-                annotationAttributes.opacity = 1;
-                annotationAttributes.scale = 1;
-                annotationAttributes.width = 200;
-                annotationAttributes.height = 100;
-                annotationAttributes.textAttributes.color = WorldWind.Color.WHITE;
-                annotationAttributes.insets = new WorldWind.Insets(10, 10, 10, 10);
-
-                annotation = new WorldWind.Annotation(layer.renderables[z].position, annotationAttributes);
-                annotation.label = layer.renderables[z].attributes.properties.ESITO_PRAT;
-                annotations.push(annotation);
-                annotation.enabled=false;
-                layer.renderables[z].annotation=annotation;
-                annotationsLayer.addRenderable(annotation);
-            }
-
-            wwd.addLayer(annotationsLayer);
         };
-        var self = this;
+
         $.ajax({
             url: "geojson/cantieri.geojson",
             success: function (res) {
@@ -212,15 +306,14 @@ define(function () {
         var polygonLayer = new WorldWind.RenderableLayer("Construction Sites");
 
 
-
         var shapeConfigurationCallback = function (geometry, properties) {
             var placemarkAttributes = new WorldWind.PlacemarkAttributes(null);
-            placemarkAttributes.imageScale = 0.15;
+            placemarkAttributes.imageScale = 0.28;
             placemarkAttributes.eyeDistanceScaling = true;
             placemarkAttributes.eyeDistanceScalingThreshold = 1e5;
             placemarkAttributes.imageOffset = new WorldWind.Offset(
-                WorldWind.OFFSET_FRACTION, 0.3,
-                WorldWind.OFFSET_FRACTION, 0.0);
+                WorldWind.OFFSET_FRACTION, 0.05,
+                WorldWind.OFFSET_FRACTION, 0.05);
 
             placemarkAttributes.labelAttributes.offset = new WorldWind.Offset(
                 WorldWind.OFFSET_FRACTION, 0.5,
@@ -232,14 +325,13 @@ define(function () {
 
 
             var highlightAttributes = new WorldWind.PlacemarkAttributes(placemarkAttributes);
-            highlightAttributes.imageScale = 0.35;
+            highlightAttributes.imageScale = 0.32;
 
 
             var configuration = {};
 
             configuration.attributes = new WorldWind.PlacemarkAttributes(placemarkAttributes);
             configuration.highlightAttributes = highlightAttributes;
-            //configuration.name = "xxx";
             configuration.eyeDistanceScaling = true;
             configuration.eyeDistanceScalingThreshold = 1000;
 
@@ -271,7 +363,6 @@ define(function () {
             }
 
         });
-        console.log(count);
     };
 
     GeoJson.prototype.getColor = function (weight, inputColors) {

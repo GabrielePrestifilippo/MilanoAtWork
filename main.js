@@ -8,7 +8,7 @@ require(['js/worldwind', 'js/UserInterface', 'js/geojson'],
     function (worldwind, UserInterface, GeoJson) {
 
         if (application) {
-            var self=this;
+            var self = this;
             worldwind = new worldwind();
             this.geojson = new GeoJson(worldwind.layerManager);
             UI = new UserInterface(worldwind.layerManager, this.geojson);
@@ -31,12 +31,15 @@ require(['js/worldwind', 'js/UserInterface', 'js/geojson'],
                         var layer = new WorldWind.WmsLayer(config, null);
                         layer.detailControl = 1.5;
                         wwd.addLayer(layer);
-                        var callback= function(){
+                        var callback = function () {
                             geojson.milano.call(geojson);
                         }
                         geojson.add("Neighborhoods", "Neighborhoods", 1, callback);
                         self.geojson.bigMilano();
+
                         self.geojson.addConstruction();
+                        self.geojson.crowdInfo();
+                        self.geojson.placemarksFromPoints();
 
                     }
 

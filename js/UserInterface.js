@@ -9,6 +9,7 @@ define([
         this.geojson = geojson;
         this.rasters = [];
         this.map = {};
+        this.allPoints = [];
     };
 
 
@@ -98,6 +99,7 @@ define([
             $("#imageTime").hide();
             $("#hideChanges").hide();
             $("#getEvolution").hide();
+            $("#constructionTime").show();
             $("#constructionMenu").show();
             $(this).hide();
             self.geojson.mode = "construction";
@@ -133,8 +135,8 @@ define([
             $("#bigMilanoMenu").hide();
             $("#imageTime").hide();
             self.picking(false);
-            self.geojson.bigMilanoJson.enabled=false;
-            self.geojson.grid.enabled=true;
+            self.geojson.bigMilanoJson.enabled = false;
+            self.geojson.grid.enabled = true;
             $("#legend").show();
             $("#constructionLegend").hide();
             $(this).hide();
@@ -342,11 +344,11 @@ define([
 
                 var col = geojson.getColor(((value - min) / (max - min)) * 100, colors);
 
-                if (value == 0 || value <0) {
+                if (value == 0 || value < 0) {
                     col = WorldWind.Color.colorFromBytes(col[0], col[1], col[2], 20);
-                } else if (value>30 && value<70) {
+                } else if (value > 30 && value < 70) {
                     col = WorldWind.Color.colorFromBytes(col[0], col[1], col[2], 166);
-                }else{
+                } else {
                     col = WorldWind.Color.colorFromBytes(col[0], col[1], col[2], 200);
                 }
                 self.map[value] = col;
@@ -366,7 +368,7 @@ define([
 
     UserInterface.prototype.picking = function (active) {
 
-        if( wwd.eventListeners.mousemove.listeners[1]){
+        if (wwd.eventListeners.mousemove.listeners[1]) {
             wwd.removeEventListener("mousemove", wwd.eventListeners.mousemove.listeners[1]);
         }
 
@@ -440,11 +442,10 @@ define([
                     }
                 };
                 wwd.addEventListener("click", handlePick);
-            } else
-            if (self.geojson.mode == "construction") {
+            } else if (self.geojson.mode == "construction") {
                 var highlightedItems = [];
-                var annotationElement;
-                var handleMove = function(o) {
+
+                var handleMove = function (o) {
                     var x = o.clientX,
                         y = o.clientY;
                     var redrawRequired = highlightedItems.length > 0; // must redraw if we de-highlight previously picked items
@@ -485,18 +486,55 @@ define([
                         for (var p = 0; p < pickList.objects.length; p++) {
                             var object = pickList.objects[p].userObject;
 
-                                if(object.annotation){
-                                    if(annotationElement && annotationElement.annotation) {
-                                        annotationElement.annotation.enabled = false;
-                                    }
-                                    annotationElement=object;
-                                    object.annotation.enabled=true
+                            if (object.attributes && object.attributes.properties && object.attributes.properties.OBJECTID) {
 
-                                }
+                                var newText = "<h3>Star date: </h3>";
+                                newText += object.attributes.properties.INIZIO_LAV;
+                                newText += "<br>";
+                                newText += "<h3>End date: </h3>";
+                                newText += object.attributes.properties.CHIUSURA_P;
+                                newText += "<br>";
+                                newText += "<h3>Current use: </h3>";
+                                newText += object.attributes.properties.USI_ATTUAL;
+                                newText += "<br>";
+                                newText += "<h3>Project use: </h3>";
+                                newText += object.attributes.properties.USI_PROGET;
+                                newText += "<br>";
+                                $("#infoBar").html(newText);
+
+
+                            } else if (object.attributes && object.attributes.properties && object.attributes.properties.crowd) {
+
+                                var newText = "<h3>Date: </h3>";
+                                newText += object.attributes.properties.date;
+                                newText += "<br>";
+                                newText += "<h3>Object of the work: </h3>";
+                                newText += object.attributes.properties.object;
+                                newText += "<br>";
+                                newText += "<h3>Start date: </h3>";
+                                newText += object.attributes.properties.start;
+                                newText += "<br>";
+                                newText += "<h3>End date: </h3>";
+                                newText += object.attributes.properties.end;
+                                newText += "<br>";
+                                newText += "<h3>Note: </h3>";
+                                newText += object.attributes.properties.note;
+                                newText += "<br>";
+                                newText += "<h3>Address: </h3>";
+                                newText += object.attributes.properties.address;
+                                newText += "<br>";
+                                newText += "<h3>Discomfort: </h3>";
+                                newText += object.attributes.properties.discomfort;
+                                newText += "<br>";
+
+                                $("#infoBar").html(newText);
+
 
                             }
 
                         }
+
+                    }
 
                 };
                 wwd.addEventListener("click", handlePick);

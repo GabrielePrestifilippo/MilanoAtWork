@@ -27,6 +27,8 @@ define(function () {
         this.wwd = worldWindow;
         this.milanoPresent = 0;
         this.constructionPresent = 0;
+        this.validationPresent = 0;
+        this.cantieriPresent = 0;
         this.roundGlobe = this.wwd.globe;
 
         this.createProjectionList();
@@ -229,7 +231,7 @@ define(function () {
                     $("#constructionTime").append(slider);
                     $("#milanoCantieri").dateRangeSlider({
                         arrows: false,
-                        defaultValues:{
+                        defaultValues: {
                             min: new Date(2013, 7, 4),
                             max: new Date(2013, 7, 21)
                         },
@@ -247,10 +249,18 @@ define(function () {
                     });
 
                     $("#milanoCantieri").bind("valuesChanged", function (e, data) {
-                        geojson.filterRenderables(new Date(data.values.min),new Date(data.values.max));
+                        geojson.filterRenderables(new Date(data.values.min), new Date(data.values.max));
 
                     });
 
+
+                } else if (layer.name == "Griglia validazione" && !self.validationPresent) {
+                    self.validationPresent = 1;
+                    $("#constructionMenu").append(layerItem);
+
+                } else if (layer.name == "Cantieri - VGI" && !self.cantieriPresent) {
+                    self.cantieriPresent = 1;
+                    $("#constructionMenu").append(layerItem);
 
                 } else if (layer.name !== "bigMilano" && layer.name !== "construction") {
                     layerListItem.append(layerItem);
