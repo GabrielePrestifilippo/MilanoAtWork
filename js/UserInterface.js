@@ -63,23 +63,18 @@ define([
             }
         });
 
+        $("#addCantiere").click(function () {
+
+            $("#addMarker").show();
+            $("#markerMenuOptions").show();
+        });
+
+        $("#addMarker").click(function () {
+            self.reward();
+        });
 
         $("#reset").click(function () {
             window.location.reload();
-            $(".slider").bootstrapSlider("setValue", 0);
-            $("#reset").hide();
-            self.geojson.clean();
-            var length = self.rasters.length;
-            for (var x = 0; x <= length; x++) {
-                wwd.removeLayer(self.rasters[x]);
-            }
-            for (var x = 0; x < wwd.layers[3].renderables.length; x++) {
-                wwd.layers[3].renderables[x].enabled = false;
-            }
-            $("#criteria_selected").html("");
-            wwd.redraw();
-            layerManager.synchronizeLayerList();
-            wwd.layers[3].enabled = false;
         });
 
         $("#showChanges").click(function () {
@@ -94,6 +89,7 @@ define([
         });
 
         $("#showConstruction").click(function () {
+            $("#addCantiere").show();
             $("#hideConstruction").show();
             $("#bigMilanoMenu").hide();
             $("#imageTime").hide();
@@ -102,14 +98,16 @@ define([
             $("#constructionTime").show();
             $("#constructionMenu").show();
             $(this).hide();
+
             self.geojson.mode = "construction";
-            self.picking(true);
+            //self.picking(true);
             self.showConstruction();
 
         });
 
 
         $("#getConstruction").click(function () {
+            $("#addCantiere").show();
             $("#cityFocus").hide();
             $("#constructionMenu").show();
             $(".construction").hide();
@@ -118,7 +116,7 @@ define([
             self.geojson.mode = "construction";
             self.picking(true);
             $("#constructionTime").show();
-            layerManager.synchronizeLayerList();
+
             $("#reset").show();
         });
 
@@ -329,7 +327,7 @@ define([
         var min = 30;
 
         var self = this;
-        var colors = [[2, 94, 33], [46, 81, 58], [85, 86, 86]];
+        var colors = [[255, 180, 180], [255, 10, 0], [255, 10, 0]];
 
         for (var x = 0; x < layer.renderables.length; x++) {
             layer.renderables[x].stateKeyInvalid = true;
@@ -344,12 +342,12 @@ define([
 
                 var col = geojson.getColor(((value - min) / (max - min)) * 100, colors);
 
-                if (value == 0 || value < 0) {
-                    col = WorldWind.Color.colorFromBytes(col[0], col[1], col[2], 20);
-                } else if (value > 30 && value < 70) {
-                    col = WorldWind.Color.colorFromBytes(col[0], col[1], col[2], 166);
+                if (value < 0 || value < 20) {
+                    col = WorldWind.Color.colorFromBytes(col[0], col[1], col[2], 80);
+                } else if (value < 0 && value < 70) {
+                    col = WorldWind.Color.colorFromBytes(col[0], col[1], col[2], 120);
                 } else {
-                    col = WorldWind.Color.colorFromBytes(col[0], col[1], col[2], 200);
+                    col = WorldWind.Color.colorFromBytes(col[0], col[1], col[2], 150);
                 }
                 self.map[value] = col;
             }
@@ -364,6 +362,59 @@ define([
         layer.enabled = true;
         layer.opacity = 0.5;
         layerManager.synchronizeLayerList();
+    };
+    var radioClick;
+    UserInterface.prototype.reward = function () {
+
+        radioClick = function (o) {
+
+            var x = o.clientX,
+                y = o.clientY;
+
+            var pickPoint = wwd.canvasCoordinates(x, y);
+            if (pickPoint) {
+                var pickList = wwd.pick(pickPoint);
+                for (var i = 0; i < 1; i++) {
+                    var position = pickList.objects[i].position;
+                }
+            }
+            if (position) {
+                var placemark,
+                    placemarkAttributes = new WorldWind.PlacemarkAttributes(null),
+                    placemarkAttributes,
+                    imageScale = 1;
+                placemarkAttributes.imageOffset = new WorldWind.Offset(
+                    WorldWind.OFFSET_FRACTION, 0.5,
+                    WorldWind.OFFSET_FRACTION, 0.0);
+                placemarkAttributes.imageColor = WorldWind.Color.WHITE;
+
+
+                placemark = new WorldWind.Placemark(
+                    position, true, null);
+                placemarkAttributes = new WorldWind.PlacemarkAttributes(placemarkAttributes);
+                placemarkAttributes.imageSource = "images/eye.png";
+                placemarkAttributes.imageScale = 0.3;
+
+                placemarkAttributes.eyeDistanceScaling = false;
+                placemark.attributes = placemarkAttributes;
+                placemark.position.altitude = 0;
+                placemark.altitudeMode = WorldWind.RELATIVE_TO_GROUND;
+                self.geojson.validPlacemark.addRenderable(placemark);
+
+
+                //  $("latitudePlacemark").text(position.latitude);
+                if (radioClick) {
+                    wwd.removeEventListener("click", radioClick);
+                    radioClick = undefined;
+                    $("#canvasOne").css("cursor", "auto");
+                }
+            }
+        }
+        ;
+
+
+        wwd.addEventListener("click", radioClick);
+        $("#canvasOne").css("cursor", "url('images/radio-cursor.png') 2 2, auto");
     };
 
     UserInterface.prototype.picking = function (active) {
@@ -488,17 +539,20 @@ define([
 
                             if (object.attributes && object.attributes.properties && object.attributes.properties.OBJECTID) {
 
-                                var newText = "<h3>Star date: </h3>";
+                                var newText = "<h3>Via: </h3>";
+                                newText += object.attributes.properties.VIA;
+                                newText += "<br>";
+                                newText += "<h3>Oggetto: </h3>";
+                                newText += object.attributes.properties.OGGETTO;
+                                newText += "<br>";
+                                newText += "<h3>Inizio lavori: </h3>";
                                 newText += object.attributes.properties.INIZIO_LAV;
                                 newText += "<br>";
-                                newText += "<h3>End date: </h3>";
-                                newText += object.attributes.properties.CHIUSURA_P;
+                                newText += "<h3>Fine lavori: </h3>";
+                                newText += object.attributes.properties.FINE_LAV2;
                                 newText += "<br>";
-                                newText += "<h3>Current use: </h3>";
-                                newText += object.attributes.properties.USI_ATTUAL;
-                                newText += "<br>";
-                                newText += "<h3>Project use: </h3>";
-                                newText += object.attributes.properties.USI_PROGET;
+                                newText += "<h3>Intervento: </h3>";
+                                newText += object.attributes.properties.INTERVENTO;
                                 newText += "<br>";
                                 $("#infoBar").html(newText);
 
@@ -524,8 +578,13 @@ define([
                                 newText += object.attributes.properties.address;
                                 newText += "<br>";
                                 newText += "<h3>Discomfort: </h3>";
-                                newText += object.attributes.properties.discomfort;
+                                newText += "<img class='imageface' src='images/" + object.attributes.properties.discomfort + ".png'>";
                                 newText += "<br>";
+                                newText += "<h3>Image: </h3>";
+                                newText += "<img class='imageForm' src='" + object.attributes.properties.url + "'><br>";
+                                newText += "<button class='btn btn-danger btn-lg'>-</button>&nbsp;";
+                                newText += "<button class='btn btn-success btn-lg'>+</button>";
+
 
                                 $("#infoBar").html(newText);
 
