@@ -12,7 +12,7 @@ define(function () {
         var self = this;
         var resourcesUrl = "geojson/";
 
-        if (label == "Neighborhoods") {
+        if (label == "Quartieri") {
             var polygonLayer = new WorldWind.RenderableLayer(label);
         } else {
             var polygonLayer = new WorldWind.RenderableLayer(label + " ");
@@ -83,10 +83,10 @@ define(function () {
         var self = this;
         var callback = function (layer) {
             wwd.addLayer(layer);
-            self.validateColor();
+
 
         };
-        var polygonLayer = new WorldWind.RenderableLayer("Milano Validation Grid");
+        var polygonLayer = new WorldWind.RenderableLayer("Distribuzione cantieri");
         $.ajax({
             url: "geojson/milano_grid.json",
             success: function (res) {
@@ -125,73 +125,147 @@ define(function () {
     GeoJson.prototype.placemarksFromPoints = function () {
 
 
-        var point = {crowd: 1, valid: 3};
+        var points = [
+                {
+                    latitude: 45.46886,
+                    date: "2016-12-10",
+                    object: "nuova costruzione",
+                    start: "2014-12-07",
+                    end: "2018-01-01",
+                    note: "che rumore!",
+                    address: "Via Abamonti Giuseppe, 20162",
+                    discomfort: "2",
+                    url: "https://gruppodinterventogiuridicoweb.files.wordpress.com/2013/05/badesi-gru.jpg",
+                    longitude: 9.18210,
+                    crowd: 1
+                },
+                {
+                    latitude: 45.4898,
+                    date: "2016-10-17",
+                    object: "lavori sotterrani",
+                    start: "2015-12-10",
+                    end: "2017-06-01",
+                    note: "insopportabile...",
+                    address: "Via Abbazia, 20155",
+                    discomfort: "2",
+                    url: "http://document.library.istella.it/user/514874862578196757000008/documents/a337d53a/preview_53bd43614acd400564000030.jpg",
+                    longitude: 9.2050,
+                    crowd: 1
+                },
+                {
+                    latitude: 45.4929,
+                    date: "2016-05-05",
+                    object: "restauro",
+                    start: "2015-12-10",
+                    end: "2019-01-01",
+                    note: "inizia la mattina alle sei!",
+                    address: "Via Abetone, 20133",
+                    discomfort: "3",
+                    url: "http://milano.corriere.it/methode_image/2014/04/21/Milano/Foto%20Milano%20-%20Trattate/16105022-kzWF-U430101763716735C2G-1224x916@Corriere-Web-Milano-593x443.jpg?v=20140421171401",
+                    longitude: 9.1651,
+                    crowd: 1
+                }]
 
-        var placemark,
-            placemarkAttributes = new WorldWind.PlacemarkAttributes(null),
-            highlightAttributes,
-            placemarkLayer = new WorldWind.RenderableLayer("Cantieri Utenti"),
-            latitude = 45.465422,
-            longitude = 9.185924;
 
-        placemarkLayer.name = ""
-        placemarkAttributes.imageScale = 0.4;
-        placemarkAttributes.imageOffset = new WorldWind.Offset(
-            WorldWind.OFFSET_FRACTION, 0.3,
-            WorldWind.OFFSET_FRACTION, 0.0);
-        placemarkAttributes.imageColor = WorldWind.Color.WHITE;
-        placemarkAttributes.labelAttributes.offset = new WorldWind.Offset(
-            WorldWind.OFFSET_FRACTION, 0.5,
-            WorldWind.OFFSET_FRACTION, 1.0);
-        placemarkAttributes.labelAttributes.color = WorldWind.Color.YELLOW;
-        placemarkAttributes.drawLeaderLine = true;
-        placemarkAttributes.leaderLineAttributes.outlineColor = WorldWind.Color.RED;
+            ;
 
 
-        placemark = new WorldWind.Placemark(new WorldWind.Position(latitude, longitude, 0), true, null);
-        placemark.altitudeMode = WorldWind.RELATIVE_TO_GROUND;
+        var placemark;
+        var placemarkLayer = new WorldWind.RenderableLayer("Cantieri Utenti");
+        points.forEach(function (p) {
 
-        placemarkAttributes = new WorldWind.PlacemarkAttributes(placemarkAttributes);
-        placemarkAttributes.imageSource = "images/eye.png";
 
-        placemark.attributes = placemarkAttributes;
-        placemark.attributes.properties = point;
+            var placemarkAttributes = new WorldWind.PlacemarkAttributes(null);
+            var highlightAttributes;
 
-        highlightAttributes = new WorldWind.PlacemarkAttributes(placemarkAttributes);
-        highlightAttributes.imageScale = 0.5;
-        placemark.highlightAttributes = highlightAttributes;
-        placemarkLayer.addRenderable(placemark);
+            var latitude = p.latitude;
+            var longitude = p.longitude;
+
+            placemarkAttributes.imageScale = 0.3;
+            placemarkAttributes.imageOffset = new WorldWind.Offset(
+                WorldWind.OFFSET_FRACTION, 0.3,
+                WorldWind.OFFSET_FRACTION, 0.0);
+            placemarkAttributes.imageColor = WorldWind.Color.WHITE;
+            placemarkAttributes.labelAttributes.offset = new WorldWind.Offset(
+                WorldWind.OFFSET_FRACTION, 0.5,
+                WorldWind.OFFSET_FRACTION, 1.0);
+            placemarkAttributes.labelAttributes.color = WorldWind.Color.YELLOW;
+            placemarkAttributes.drawLeaderLine = true;
+            placemarkAttributes.leaderLineAttributes.outlineColor = WorldWind.Color.RED;
+
+
+            placemark = new WorldWind.Placemark(new WorldWind.Position(latitude, longitude, 0), true, null);
+            placemark.altitudeMode = WorldWind.RELATIVE_TO_GROUND;
+
+            placemarkAttributes = new WorldWind.PlacemarkAttributes(placemarkAttributes);
+            placemarkAttributes.imageSource = "images/eye.png";
+
+            placemark.attributes = placemarkAttributes;
+            placemark.attributes.properties = p;
+
+            highlightAttributes = new WorldWind.PlacemarkAttributes(placemarkAttributes);
+            highlightAttributes.imageScale = 0.5;
+            placemark.highlightAttributes = highlightAttributes;
+            placemarkLayer.addRenderable(placemark);
+
+        });
 
         this.validPlacemark = placemarkLayer;
         placemarkLayer.enabled = false;
         wwd.addLayer(placemarkLayer);
     };
     GeoJson.prototype.validateColor = function () {
+        var self = this;
         var grid = this.validationGrid;
-        var points = this.validPlacemark;
+        var points = this.timeSites;
         var numCantieri = [];
-
+        var max = 0;
         grid.renderables.forEach(function (ren) {
             var bb = ren._boundaries;
 
+            ren.enabled = false;
             points.renderables.forEach(function (p) {
 
                 var topleft = bb[2];
                 var bottomright = bb[0];
 
                 if (p.position.latitude <= topleft.latitude && p.position.latitude >= bottomright.latitude && p.position.longitude >= topleft.longitude && p.position.longitude <= bottomright.longitude) {
-                    if (ren.numCantieri) {
-                        ren.numCantieri++;
-                    } else {
-                        ren.numCantieri = 1;
+                    if (p.enabled == true) {
+                        if (ren.numCantieri) {
+                            ren.numCantieri++;
+                            max = Math.max(max, ren.numCantieri);
+                        } else {
+                            ren.numCantieri = 1;
+                        }
                     }
 
                 }
             });
         });
+        var colors = [[0, 0, 0], [0, 255, 0], [50, 255, 10]];
         grid.renderables.forEach(function (ren) {
-            ren._attributes._outlineColor = new WorldWind.Color(0, 255, 0, 1);
+            var value = ren.numCantieri;
+            if (value <= 0) {
+                value = 1;
+            }
+            if (value >= 1) {
+                value = 2;
+                ren.stateKeyInvalid = true;
+                var col = geojson.getColor(((value - 1) / (2 - 1)) * 100, colors);
+                if (col[0] == 0 || !col || col[2] == 0) {
+                    col = WorldWind.Color.colorFromBytes(10, 255, 10, 200);
+                } else {
+                    col = WorldWind.Color.colorFromBytes(col[0], col[1], col[2], 200);
+                }
+                ren._attributes._outlineColor = col;
+                ren.enabled = true;
+            } else {
+                ren.enabled = false;
+            }
+
+
         });
+        wwd.redraw();
 
     };
 
@@ -277,8 +351,9 @@ define(function () {
     GeoJson.prototype.showConstruction = function () {
         this.timeSites.enabled = true;
         this.bigMilanoJson.enabled = false;
-        this.validationGrid.enabled = true;
+        this.validationGrid.enabled = false;
         this.validPlacemark.enabled = true;
+        layerManager.synchronizeLayerList();
     };
 
 
@@ -303,12 +378,12 @@ define(function () {
             }
         });
 
-        var polygonLayer = new WorldWind.RenderableLayer("Construction Sites");
+        var polygonLayer = new WorldWind.RenderableLayer("Cantieri");
 
 
         var shapeConfigurationCallback = function (geometry, properties) {
             var placemarkAttributes = new WorldWind.PlacemarkAttributes(null);
-            placemarkAttributes.imageScale = 0.28;
+            placemarkAttributes.imageScale = 0.050;
             placemarkAttributes.eyeDistanceScaling = true;
             placemarkAttributes.eyeDistanceScalingThreshold = 1e5;
             placemarkAttributes.imageOffset = new WorldWind.Offset(
@@ -325,7 +400,7 @@ define(function () {
 
 
             var highlightAttributes = new WorldWind.PlacemarkAttributes(placemarkAttributes);
-            highlightAttributes.imageScale = 0.32;
+            highlightAttributes.imageScale = 0.060;
 
 
             var configuration = {};
@@ -339,15 +414,12 @@ define(function () {
 
             return configuration;
         };
-
         polygonLayer.enabled = false;
         polygonLayer.pickEnabled = true;
         polygonLayer.opacity = 1;
         polygonLayer.raster = false;
         polygonLayer.name = "construction";
         this.timeSites = polygonLayer;
-
-
     };
 
     GeoJson.prototype.filterRenderables = function (date1, date2) {
@@ -390,7 +462,7 @@ define(function () {
     GeoJson.prototype.eyeDistance = function (layer) {
         if (layer.renderables) {
             wwd.addLayer(layer);
-            if (layer.displayName !== "Neighborhoods") {
+            if (layer.displayName !== "Quartieri") {
                 this.layers.push(layer);
             }
             for (var x in layer.renderables) {

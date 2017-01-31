@@ -1,0 +1,63 @@
+body {
+  font-family: 'Open Sans', serif;
+  background-color: rgba(102,244,37,0.1);
+  font-size: 12px;
+}
+#milanofocus_logo {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 150px;
+}
+#registration_form, #poi_form, #login_form {
+  text-align: center;
+}
+#get_location {
+  cursor: pointer;
+  background:none;
+  border:none;
+  margin-bottom: 3px;
+}
+#registration_form_b, #poi_form_b, #login_form_b, #foto_b {
+  background-color: rgba(102,244,37,1);
+  border: solid 1px #cbc9c9;
+  border-radius: 3px;
+  width: auto;
+  height: 30px;
+  margin: 0 auto;
+  display: block;
+  cursor: pointer;
+}
+#foto_b {
+  margin-bottom: 3px;
+}
+#plus_b {
+  background-color: rgba(102,244,37,1);
+  border: solid 1px #cbc9c9;
+  border-radius: 3px;
+  width: auto;
+  margin: 0 auto;
+  cursor: pointer;
+  height: 20px;
+}
+input {
+  border: solid 1px #cbc9c9;
+  border-radius: 3px;
+  margin-bottom: 3px;
+}
+#disturbance_zero, #disturbance_one, #disturbance_two, #disturbance_three {
+  width: 15px;
+  margin-bottom: -4px;
+  cursor: pointer;
+}
+#address_poi_cap {
+  margin-top: 3px;
+  margin-bottom: 7px;
+}
+#address_plus {
+  margin-left: 3px;
+}
+#avviso {
+  display: inline-block;
+  margin-bottom: 3px;
+}

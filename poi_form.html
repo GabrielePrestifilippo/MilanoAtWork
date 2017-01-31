@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>POI</title>
+</head>
+<body>
+  <img id="milanofocus_logo" src="images/milanofocus_logo_s_2.png">
+  <div id="poi_form">
+    <span id="label_input"><label for="object">Oggetto</label><br><input id="object" type="text"/></span><br>
+    <span id="label_input"><label for="start_date">Data di inizio</label><br><input id="start_date" type="text"/></span><br>
+    <span id="label_input"><label for="end_date">Data di fine</label><br><input id="end_date" type="text"/></span><br>
+    <span id="label_input"><label for="note">Nota/Commento</label><br><input id="note" type="text"/></span><br>
+    <!--<span id="label_input"><label for="disturbance">Disagio: </label><input id="disturbance" type="text"/></span><br>-->
+    <span id="label_input"><label for="disturbance">Disagio</label><br>
+      <img id="disturbance_zero" src="images/disturbance_zero.png">
+      <img id="disturbance_one" src="images/disturbance_one.png">
+      <img id="disturbance_two" src="images/disturbance_two.png">
+      <img id="disturbance_three" src="images/disturbance_three.png">
+    </span><br>
+    <span id="label_input"><label for="address_poi">Indirizzo</label><br><input id="address_poi_via" placeholder="Via" type="text"/><br>
+    <input id="address_poi_cap" placeholder="CAP" type="text"/></span><br>
+    <input id="foto_b" type="button" value="Scegli una foto...">
+    <input id="choose_file" type="file" name="choose_file" style="display: none;"/>
+    <span id="label_input"><button id="get_location">Registra posizione...</button></span>
+    <input id="poi_form_b" type="button" value="Invia">
+  </div>
+
+  <script src="libraries/jquery-3.1.1.min.js"></script>
+  <link rel="stylesheet" href="libraries/jquery-ui-1.12.1/jquery-ui.min.css">
+  <script src="libraries/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+  <link rel="stylesheet" href="index.css">
+  <script src="index.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans">
+</body>
+</html>

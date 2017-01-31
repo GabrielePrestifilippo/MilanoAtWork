@@ -10,8 +10,10 @@ define(['./LayerManager'],
             wwd = new WorldWind.WorldWindow("canvasOne");
 
             var layers = [
-
-
+                {
+                    layer: new WorldWind.DigitalGlobeTiledImageLayer("LIgh map", "mapbox.light", 'pk.eyJ1IjoiZ2Ficnk1MDEiLCJhIjoiY2l2dGdtcjAzMDAzbjJvcWRmN3E4d3k4MCJ9.ghyEXEojEXRXklFc4DWtDA'),
+                    enabled: true
+                },
                 {layer: new WorldWind.ViewControlsLayer(wwd), enabled: true}
             ];
 

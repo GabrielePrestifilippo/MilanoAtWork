@@ -63,10 +63,19 @@ define([
             }
         });
 
-        $("#addCantiere").click(function () {
 
+        $("#addCantiere").click(function () {
+            $(this).hide();
             $("#addMarker").show();
             $("#markerMenuOptions").show();
+            $("#hideCantiere").show();
+        });
+
+        $("#hideCantiere").click(function () {
+            $(this).hide();
+            $("#addMarker").hide();
+            $("#markerMenuOptions").hide();
+            $("#addCantiere").show();
         });
 
         $("#addMarker").click(function () {
@@ -374,7 +383,7 @@ define([
             var pickPoint = wwd.canvasCoordinates(x, y);
             if (pickPoint) {
                 var pickList = wwd.pick(pickPoint);
-                for (var i = 0; i < 1; i++) {
+                for (var i = 0; i < pickList.objects.length; i++) {
                     var position = pickList.objects[i].position;
                 }
             }
@@ -382,7 +391,7 @@ define([
                 var placemark,
                     placemarkAttributes = new WorldWind.PlacemarkAttributes(null),
                     placemarkAttributes,
-                    imageScale = 1;
+                    imageScale = 0.5;
                 placemarkAttributes.imageOffset = new WorldWind.Offset(
                     WorldWind.OFFSET_FRACTION, 0.5,
                     WorldWind.OFFSET_FRACTION, 0.0);
@@ -559,30 +568,30 @@ define([
 
                             } else if (object.attributes && object.attributes.properties && object.attributes.properties.crowd) {
 
-                                var newText = "<h3>Date: </h3>";
+                                var newText = "<h3>Data segnalazione: </h3>";
                                 newText += object.attributes.properties.date;
                                 newText += "<br>";
-                                newText += "<h3>Object of the work: </h3>";
+                                newText += "<h3>Oggetto: </h3>";
                                 newText += object.attributes.properties.object;
                                 newText += "<br>";
-                                newText += "<h3>Start date: </h3>";
+                                newText += "<h3>Data inizio: </h3>";
                                 newText += object.attributes.properties.start;
                                 newText += "<br>";
-                                newText += "<h3>End date: </h3>";
+                                newText += "<h3>Data fine: </h3>";
                                 newText += object.attributes.properties.end;
                                 newText += "<br>";
                                 newText += "<h3>Note: </h3>";
                                 newText += object.attributes.properties.note;
                                 newText += "<br>";
-                                newText += "<h3>Address: </h3>";
+                                newText += "<h3>Indirizzo: </h3>";
                                 newText += object.attributes.properties.address;
                                 newText += "<br>";
-                                newText += "<h3>Discomfort: </h3>";
+                                newText += "<h3>Disagio: </h3>";
                                 newText += "<img class='imageface' src='images/" + object.attributes.properties.discomfort + ".png'>";
                                 newText += "<br>";
-                                newText += "<h3>Image: </h3>";
-                                newText += "<img class='imageForm' src='" + object.attributes.properties.url + "'><br>";
-                                newText += "<button class='btn btn-danger btn-lg'>-</button>&nbsp;";
+                                newText += "<h3>Immagine: </h3>";
+                                newText += "<img class='imageForm' src='" + object.attributes.properties.url + "'><br><br>";
+                                newText += "<button class='btn btn-danger btn-lg'>-</button>&nbsp;&nbsp;";
                                 newText += "<button class='btn btn-success btn-lg'>+</button>";
 
 

@@ -23,12 +23,15 @@
 <script src="js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="css/progress.css">
 <link rel="stylesheet" href="css/iThing.css">
-<link rel="stylesheet" href="css/jquery-ui.min.css">
+
 <link rel="stylesheet" href="css/main.css">
 <link rel="stylesheet" href="css/bootstrap-slider.min.css">
+<link rel="stylesheet" href="css/jquery-ui.min.css">
 <div id="header">
 
 </div>
+<div id="dialog0"></div>
+<div id="dialog1"></div>
 <div class="container" id="c_one_home_app">
 
 
@@ -36,9 +39,7 @@
         <div class="row bigText">
 
             <div class="inside" style="color:#333">
-                <p> Hi there! <br>
-                    Find your place or check the changes
-                </p>
+
             </div>
 
 
@@ -50,7 +51,7 @@
 <div class="container" id="c_two">
 
     <div class="bigText" style="color:#333" id="criteria_name">
-        Criteria for the city of Milan, Italy:
+        Criteri per la città di milano:
     </div>
 
 
@@ -64,14 +65,14 @@
                         <h4 class="panel-title">
                             <a title=" assign points (from 0 to 100) according to how near you want to live to the city's service as you see below"
                                data-toggle="collapse"
-                               href="#collapse1">Near to Services</a>
+                               href="#collapse1">Servizi</a>
                         </h4>
                     </div>
                     <div id="collapse1" class="panel-collapse collapse">
                         <div class="panel-body">
 
                             <div class="name_slider" id="ParkingArea">
-                                <label>Parking</label>
+                                <label>Parcheggi</label>
                                 <div class="slider" id="parking"></div>
                             </div>
                             <div class="name_slider" id="SportArea">
@@ -79,43 +80,43 @@
                                 <div class="slider" id="sport200"></div>
                             </div>
                             <div class="name_slider" id="ATMs">
-                                <label>ATMs</label>
+                                <label>Bancomat</label>
                                 <div class="slider" id="atms200"></div>
                             </div>
                             <div class="name_slider" id="Banks">
-                                <label>Banks</label>
+                                <label>Banche</label>
                                 <div class="slider" id="banks200"></div>
                             </div>
                             <div class="name_slider" id="Coffe_Shop">
-                                <label>Coffee Shops</label>
+                                <label>Bar</label>
                                 <div class="slider" id="cafe200"></div>
                             </div>
                             <div class="name_slider" id="Hospitals">
-                                <label>Hospitals</label>
+                                <label>Ospedali</label>
                                 <div class="slider" id="hospitals200"></div>
                             </div>
                             <div class="name_slider" id="Pharmacies">
-                                <label>Pharmacies</label>
+                                <label>Farmacie</label>
                                 <div class="slider" id="pharmacies200"></div>
                             </div>
                             <div class="name_slider" id="Police_station">
-                                <label>Police Stations</label>
+                                <label>Stazioni di polizia</label>
                                 <div class="slider" id="police200"></div>
                             </div>
                             <div class="name_slider" id="Post_office">
-                                <label>Post Offices</label>
+                                <label>Uffici postali</label>
                                 <div class="slider" id="post200"></div>
                             </div>
                             <div class="name_slider" id="Supermarkets">
-                                <label>Supermarkets</label>
+                                <label>Supermercati</label>
                                 <div class="slider" id="supermarkets200"></div>
                             </div>
                             <div class="name_slider" id="Veterinary clinics">
-                                <label>Veterinary Clinics</label>
+                                <label>Veterinari</label>
                                 <div class="slider" id="veterinary200"></div>
                             </div>
                             <div class="name_slider" id="Wifi">
-                                <label>Free Wifi</label>
+                                <label>Wifi Gratuito</label>
                                 <div class="slider" id="wifi200"></div>
                             </div>
 
@@ -130,8 +131,7 @@
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <a title="assign points (from 0 to 100) according to how near you want to live to the city's green area as you see below"
-                               data-toggle="collapse" href="#collapse2">Near to
-                                Nature</a>
+                               data-toggle="collapse" href="#collapse2">Natura e tempo libero</a>
                         </h4>
                     </div>
                     <div id="collapse2" class="panel-collapse collapse">
@@ -165,8 +165,7 @@
                         <h4 class="panel-title">
                             <a data-toggle="collapse"
                                title="assign points (from 0 to 100) according to how near you want to live to the city's education establishments as you see below"
-                               href="#collapse3">Near to
-                                Education</a>
+                               href="#collapse3">Educazione</a>
                         </h4>
                     </div>
                     <div id="collapse3" class="panel-collapse collapse">
@@ -204,8 +203,7 @@
                         <h4 class="panel-title">
                             <a data-toggle="collapse"
                                title="assign points (from 0 to 100) according to how near you want to live to the city's public transportation stops, as you see below"
-                               href="#collapse4">Near to
-                                Transportation</a>
+                               href="#collapse4">Trasporti</a>
                         </h4>
                     </div>
                     <div id="collapse4" class="panel-collapse collapse">
@@ -226,105 +224,105 @@
                 </div>
             </div>
 
-            <div class="panel-group">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a title="assign points (from 0 to 100) according to your preference on the city's areas with good air quality, low - medium or high temperatures (they represent the average warmer or colder areas within the city during a year)"
-                               data-toggle="collapse" href="#collapse5">Environmental
-                                conditions</a>
-                        </h4>
-                    </div>
-                    <div id="collapse5" class="panel-collapse collapse">
-                        <div class="panel-body">
+            <!--   <div class="panel-group">
+                   <div class="panel panel-default">
+                       <div class="panel-heading">
+                           <h4 class="panel-title">
+                               <a title="assign points (from 0 to 100) according to your preference on the city's areas with good air quality, low - medium or high temperatures (they represent the average warmer or colder areas within the city during a year)"
+                                  data-toggle="collapse" href="#collapse5">Environmental
+                                   conditions</a>
+                           </h4>
+                       </div>
+                       <div id="collapse5" class="panel-collapse collapse">
+                           <div class="panel-body">
 
-                            <div class="name_slider" id="Air_quality">
-                                <label>Air Quality</label>
-                                <div class="slider" id="neweea200"></div>
-                            </div>
-                            <div class="name_slider" id="LowTemperature">
-                                <label>Low Temperature</label>
-                                <div class="slider" id="lowtemp200"></div>
-                            </div>
-                            <div class="name_slider" id="MedTemperature">
-                                <label>Medium Temperature</label>
-                                <div class="slider" id="medtemp200"></div>
-                            </div>
-                            <div class="name_slider" id="HighTemperature">
-                                <label>High Temperature</label>
-                                <div class="slider" id="hightemp200"></div>
-                            </div>
+                               <div class="name_slider" id="Air_quality">
+                                   <label>Air Quality</label>
+                                   <div class="slider" id="neweea200"></div>
+                               </div>
+                               <div class="name_slider" id="LowTemperature">
+                                   <label>Low Temperature</label>
+                                   <div class="slider" id="lowtemp200"></div>
+                               </div>
+                               <div class="name_slider" id="MedTemperature">
+                                   <label>Medium Temperature</label>
+                                   <div class="slider" id="medtemp200"></div>
+                               </div>
+                               <div class="name_slider" id="HighTemperature">
+                                   <label>High Temperature</label>
+                                   <div class="slider" id="hightemp200"></div>
+                               </div>
 
 
+                           </div>
+
+                       </div>
+                   </div>
+               </div>-->
+            <!--
+                        <div class="panel-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a title="assign points (from 0 to 100) according to your preference on the city's main land use types, as you see below"
+                                           data-toggle="collapse" href="#collapse6">Landuse Type</a>
+                                    </h4>
+                                </div>
+                                <div id="collapse6" class="panel-collapse collapse">
+                                    <div class="panel-body">
+
+                                        <div class="name_slider" id="Industrial_units">
+                                            <label>Industrial or commercial units</label>
+                                            <div class="slider" id="commind200"></div>
+                                        </div>
+                                        <div class="name_slider" id="Continuous_id">
+                                            <label>Continuous urban fabric</label>
+                                            <div class="slider" id="continuous200"></div>
+                                        </div>
+                                        <div class="name_slider" id="Discontinuous_id">
+                                            <label>Discontinuous urban fabric</label>
+                                            <div class="slider" id="discontinuous200"></div>
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
+            -->
+            <!--      <div class="panel-group">
+                      <div class="panel panel-default">
+                          <div class="panel-heading">
+                              <h4 class="panel-title">
+                                  <a title="assign points (from 0 to 100) according to your preference on the city's low - medium - high populated areas"
+                                     data-toggle="collapse" href="#collapse7">Population
+                                      Density</a>
+                              </h4>
+                          </div>
+                          <div id="collapse7" class="panel-collapse collapse">
+                              <div class="panel-body">
 
-                    </div>
-                </div>
-            </div>
-
-            <div class="panel-group">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a title="assign points (from 0 to 100) according to your preference on the city's main land use types, as you see below"
-                               data-toggle="collapse" href="#collapse6">Landuse Type</a>
-                        </h4>
-                    </div>
-                    <div id="collapse6" class="panel-collapse collapse">
-                        <div class="panel-body">
-
-                            <div class="name_slider" id="Industrial_units">
-                                <label>Industrial or commercial units</label>
-                                <div class="slider" id="commind200"></div>
-                            </div>
-                            <div class="name_slider" id="Continuous_id">
-                                <label>Continuous urban fabric</label>
-                                <div class="slider" id="continuous200"></div>
-                            </div>
-                            <div class="name_slider" id="Discontinuous_id">
-                                <label>Discontinuous urban fabric</label>
-                                <div class="slider" id="discontinuous200"></div>
-                            </div>
+                                  <div class="name_slider" id="low_Population_density">
+                                      <label>Low Population Density</label>
+                                      <div class="slider" id="lowpop200"></div>
+                                  </div>
+                                  <div class="name_slider" id="medium_Population_density">
+                                      <label>Medium Population Density</label>
+                                      <div class="slider" id="medpop200"></div>
+                                  </div>
+                                  <div class="name_slider" id="high_Population_density">
+                                      <label>High Population Density</label>
+                                      <div class="slider" id="highpop200"></div>
+                                  </div>
 
 
-                        </div>
+                              </div>
 
-                    </div>
-                </div>
-            </div>
-
-            <div class="panel-group">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a title="assign points (from 0 to 100) according to your preference on the city's low - medium - high populated areas"
-                               data-toggle="collapse" href="#collapse7">Population
-                                Density</a>
-                        </h4>
-                    </div>
-                    <div id="collapse7" class="panel-collapse collapse">
-                        <div class="panel-body">
-
-                            <div class="name_slider" id="low_Population_density">
-                                <label>Low Population Density</label>
-                                <div class="slider" id="lowpop200"></div>
-                            </div>
-                            <div class="name_slider" id="medium_Population_density">
-                                <label>Medium Population Density</label>
-                                <div class="slider" id="medpop200"></div>
-                            </div>
-                            <div class="name_slider" id="high_Population_density">
-                                <label>High Population Density</label>
-                                <div class="slider" id="highpop200"></div>
-                            </div>
-
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
+                          </div>
+                      </div>
+                  </div>
+      -->
         </div>
 
     </div>
@@ -332,23 +330,69 @@
 </div>
 <div class="container" id="middlePart">
     <div class="bigCentral">
+        <button id="getConstruction" type="button" class="btn btn-warning btn-lg construction">Cantieri
+        </button>
+        <button id="cityFocus" type="button" class="btn btn-warning btn-lg construction">Servizi</button>
+        <button id="getEvolution" type="button" class="btn btn-warning btn-lg">Cambiamenti</button>
 
-        <button id="getEvolution" type="button" class="btn btn-warning btn-lg">See the Evolution</button>
-        <button id="getConstruction" type="button" class="btn btn-warning btn-lg construction">Construction Sites</button>
     </div>
+
+    <button id="submitQuery" type="button" class="btn btn-warning btn-lg">Inizio</button>
+
     <div id="imageTime">
     </div>
     <div id="constructionTime">
     </div>
+
 </div>
 <div class="container" id="c_three">
 
     <div class="col-sm-3">
         <br>
+
+        <br>
         <div id="infoBar">
 
         </div>
         <div id="crowdBar">
+
+        </div>
+        <br>
+        <button id="addCantiere" type="button" class="btn btn-warning btn-lg">Nuovo Cantiere</button>
+        <button id="hideCantiere" style="display: none" type="button" class="btn btn-warning btn-lg">Nascondi</button>
+        <br>
+        <div id="markerMenuOptions">
+
+            <div id="poi_form">
+                <label for="object">Oggetto</label><br><input id="object"
+                                                              type="text"/><br>
+                <label for="start_date">Data di inizio</label><br><input id="start_date"
+                                                                         type="text"/><br>
+                <label for="end_date">Data di fine</label><br><input id="end_date" type="text"/><br>
+                <label for="note">Nota/Commento</label><br><input id="note"
+                                                                  type="text"/><br>
+                <!--<span id="label_input"><label for="disturbance">Disagio: </label><input id="disturbance" type="text"/></span><br>-->
+                <label for="disturbance">Disagio</label><br>
+                <img id="disturbance_zero" src="images/0.png">
+                <img id="disturbance_one" src="images/1.png">
+                <img id="disturbance_two" src="images/2.png">
+                <img id="disturbance_three" src="images/3.png">
+                <br>
+                <label for="address_poi">Indirizzo</label><br><input id="address_poi_via"
+                                                                     placeholder="Via"
+                                                                     type="text"/><br>
+                <input id="address_poi_cap" placeholder="CAP" type="text"/><br>
+                <input id="foto_b" type="button" class="btn btn-warning btn-lg" value="Scegli una foto...">
+                <br>
+                <button id="addMarker" type="button" class="btn btn-warning btn-lg">Scegli Posizione</button>
+                <br>
+                <br>
+
+                <input id="choose_file" class="btn btn-warning btn-lg" type="file" name="choose_file"
+                       style="display: none;"/>
+
+                <input id="poi_form_b" class="btn btn-warning btn-lg" type="button" value="Invia">
+            </div>
 
         </div>
         <br>
@@ -369,7 +413,7 @@
 
 
         <button id="expandLayer" class="btn btn-info btn-block dropdown-toggle" type="button" data-toggle="dropdown">
-            Locations of interest<span
+            Informazioni di interesse<span
                 class="caret"></span></button>
         <div data-open="false" class="list-group" id="layerList">
             <br>
@@ -383,16 +427,18 @@
         </div>
         <br>
         <div id="selectedCriteriaDiv">
-            <h4>Selected Criteria</h4>
+            <h4>Criteri selezionati</h4>
             <div id="criteria_selected">
             </div>
         </div>
         <br>
-        <button style="display:none" class="btn btn-warning btn-lg" id="showChanges">Show Changes</button>
-        <button style="display:none" class="btn btn-warning btn-lg" id="hideChanges">Hide Changes</button>
-        <br>  <br>
-        <button style="display:none" class="btn btn-warning btn-lg" id="showConstruction">Show Construction sites</button>
-        <button style="display:none" class="btn btn-warning btn-lg" id="hideConstruction">Hide Construction sites</button>
+        <button style="display:none" class="btn btn-warning btn-lg" id="showChanges">Mostra Cambiamenti</button>
+        <button style="display:none" class="btn btn-warning btn-lg" id="hideChanges">Nascondi Cambiamenti</button>
+        <br> <br>
+        <button style="display:none" class="btn btn-warning btn-lg" id="showConstruction">Mostra Cantieri
+        </button>
+        <button style="display:none" class="btn btn-warning btn-lg" id="hideConstruction">Nascondi Cantieri
+        </button>
         <br>
         <br>
         <button style="display:none" class="btn btn-warning btn-lg" id="reset">Reset</button>
@@ -422,14 +468,8 @@
             <div class="ls">90-100%</div>
             <div class="sq sq10"></div>
         </div>
-        <div id="constructionLegend">
-            <span>Legend</span><br>
-            <div class="ls">0-10%</div>
-            <div class="sq cq1"></div>
-            <div class="ls">10-20%</div>
-            <div class="sq cq2"></div>
-            <div class="ls">20-30%</div>
-            <div class="sq cq3"></div>
+        <div style="display: none !important;" id="constructionLegend">
+
         </div>
         <canvas id="canvasOne" width="1000" height="1000" style="width: 100%; height: 65%">
             Your browser does not support HTML5 Canvas.
@@ -448,6 +488,19 @@
 
 
 </div>
+<script>
+
+
+    function open0() {
+        // $("#dialog0").append($("<iframe />").attr("src", "your link")).dialog();
+        $("#dialog0").load("registration_form.html").dialog();
+    }
+    function open1() {
+        //  $("#dialog1").append($("<iframe />").attr("src", "your link")).dialog();
+        $("#dialog1").load("login_form.html").dialog();
+    }
+
+</script>
 
 </body>
 </html>

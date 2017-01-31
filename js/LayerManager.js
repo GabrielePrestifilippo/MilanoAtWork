@@ -216,7 +216,7 @@ define(function () {
                         $("#legend").hide();
                         $("#constructionLegend").show();
                     });
-                } else if (layer.name == "construction" && !self.constructionPresent) {
+                } else if (layer.name == "construction" && !self.constructionPresent && layer.enabled) {
                     self.constructionPresent = 1;
 
                     $("#constructionMenu").append(layerItem);
@@ -250,17 +250,19 @@ define(function () {
 
                     $("#milanoCantieri").bind("valuesChanged", function (e, data) {
                         geojson.filterRenderables(new Date(data.values.min), new Date(data.values.max));
-
+                        geojson.validateColor();
                     });
 
 
                 } else if (layer.name == "Griglia validazione" && !self.validationPresent) {
                     self.validationPresent = 1;
-                    $("#constructionMenu").append(layerItem);
+                    //   $("#constructionMenu").append(layerItem);
+                    layerListItem.append(layerItem);
 
                 } else if (layer.name == "Cantieri - VGI" && !self.cantieriPresent) {
                     self.cantieriPresent = 1;
-                    $("#constructionMenu").append(layerItem);
+                    //  $("#constructionMenu").append(layerItem);
+                    layerListItem.append(layerItem);
 
                 } else if (layer.name !== "bigMilano" && layer.name !== "construction") {
                     layerListItem.append(layerItem);

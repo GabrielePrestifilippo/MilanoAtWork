@@ -59,7 +59,7 @@ body {
     background-color: #f6f6f6; /*#2ad252;*/
     text-align: center;
     padding-bottom: 50px;
-    color:#333;
+    color: #333;
     display: none;
 
 }
@@ -68,7 +68,7 @@ body {
     background-color: #f6f6f6; /*#2ad252;*/
     text-align: center;
     padding-bottom: 10px;
-    color:#333;
+    color: #333;
 }
 
 #c_three {
@@ -121,7 +121,7 @@ div#intro {
     display: block;
     text-align: left;
     font-size: 28px;
-    width:100%;
+    width: 100%;
 }
 
 #criteria_name {
@@ -154,23 +154,21 @@ div#intro {
     display: inherit;
 }
 
-.name_slider {
-    font-weight: bold;
-    margin: 20px;
-    float: left;
-}
+
 
 .name_slider {
     font-weight: bold;
     margin: 10px;
     float: left;
+
 }
 
-.col-sm-3{
+.col-sm-3 {
 
-     padding-right: 5px;
+    padding-right: 5px;
     padding-left: 5px;
 }
+
 .slider .ui-slider-range {
     background: #54a4ff;
 }
@@ -182,10 +180,12 @@ div#intro {
     border-radius: 20px;
     height: 15px;
 }
+
 div#timeMilano {
     padding-left: 10px;
     padding-top: 10px;
 }
+
 .slider_milano {
     float: left;
     clear: left;
@@ -193,24 +193,30 @@ div#timeMilano {
     border-radius: 20px;
     height: 15px;
 }
+
 .slider_cantieri {
     float: left;
     clear: left;
     width: 100%;
     border-radius: 20px;
 }
-#constructionMenu{
+
+#constructionMenu {
     display: none;
 }
-#bigMilanoMenu{
+
+#bigMilanoMenu {
     height: 120px;
     display: none;
 }
+
 label {
     color: #333;
     font-size: 16px;
     float: left;
+
 }
+
 .ui-widget.ui-widget-content {
     border: none !important;
 }
@@ -222,12 +228,7 @@ span.ui-slider-handle.ui-state-default.ui-corner-all {
     border-radius: 50%;
 }
 
-.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
-    border: 1px solid #d3d3d3;
-    font-weight: normal;
-    color: #555555;
-    background: radial-gradient(ellipse at center, #0a0809 0%, #0a0e0a 14%, #54a4ff 15%, #54a4ff 100%);
-}
+
 
 .ui-widget-content {
     border: 1px solid #aaaaaa;
@@ -250,6 +251,7 @@ div#myNavbar {
     padding-bottom: 20px;
     border: 1px solid transparent;
     margin-bottom: 0px;
+    padding-top: 20px;
 }
 
 li.nav-item {
@@ -292,7 +294,6 @@ a.nav-link:hover {
 .panel.panel-default {
     border: none;
 }
-
 
 .panel-title {
     text-align: center;
@@ -354,9 +355,11 @@ a.nav-link:hover {
     margin-top: 50px;
 
 }
-#submitQuery{
+
+#submitQuery {
     display: none;
 }
+
 .name_result {
     font-size: 24px;
     float: left;
@@ -437,11 +440,12 @@ a:hover, a:focus {
     background-color: #27a520;
     border-color: #238e1c;
 }
+
 .panel-default > .panel-heading {
     color: #fff;
     background-color: #6cd83a;
     border-color: #6bd63a;
-    border-radius:4px;
+    border-radius: 4px;
 }
 
 .tooltip-inner {
@@ -450,10 +454,12 @@ a:hover, a:focus {
     font-size: 20px;
     max-width: 400px;
 }
+
 h4.panel-title a {
     font-size: 14px;
     font-weight: normal;
 }
+
 .tooltip-arrow {
     border-top-color: #fff !important;
 
@@ -466,6 +472,7 @@ h4.panel-title a {
 #leftImages a {
     color: white;
 }
+
 div#legend {
     width: 120px;
     float: right;
@@ -475,6 +482,7 @@ div#legend {
     border-bottom-left-radius: 7px;
     display: none;
 }
+
 div#constructionLegend {
     width: 120px;
     float: right;
@@ -484,59 +492,63 @@ div#constructionLegend {
     border-bottom-left-radius: 7px;
     display: none;
 }
-.ls{
-    float:left;
-    width:100px;
+
+.ls {
+    float: left;
+    width: 100px;
 }
-.sq{
-    width:15px;
-    height:15px;
-    float:left;
+
+.sq {
+    width: 15px;
+    height: 15px;
+    float: left;
 }
-.sq1{
-    background-color:#8dc1c5;
+
+.sq1 {
+    background-color: #8dc1c5;
 }
-.sq2{
-      background-color:#9fccc3;
-  }
-.sq3{
-    background-color:#b9dbc1;
+
+.sq2 {
+    background-color: #9fccc3;
 }
-.sq4{
-    background-color:#d7ebbe;
+
+.sq3 {
+    background-color: #b9dbc1;
 }
-.sq5{
-    background-color:#f1edb7;
+
+.sq4 {
+    background-color: #d7ebbe;
 }
-.sq6{
-    background-color:#ffedaa;
+
+.sq5 {
+    background-color: #f1edb7;
 }
-.sq7{
-    background-color:#ffcf92;
+
+.sq6 {
+    background-color: #ffedaa;
 }
-.sq8{
-    background-color:#f8a273;
+
+.sq7 {
+    background-color: #ffcf92;
 }
-.sq9{
-    background-color:#ec6d50;
+
+.sq8 {
+    background-color: #f8a273;
 }
-.sq10{
-    background-color:#df3d31;
+
+.sq9 {
+    background-color: #ec6d50;
 }
-#opacity{
-    display:none;
+
+.sq10 {
+    background-color: #df3d31;
 }
-#rasterList{
-    padding-left: 0;
-    margin-bottom: 0px;
-    max-height: 0px;
-    overflow: scroll;
-    overflow-x: hidden;
-    display: block;
-    height: auto;
-    transition: all 0.5s;
+
+#opacity {
+    display: none;
 }
-#layerList{
+
+#rasterList {
     padding-left: 0;
     margin-bottom: 0px;
     max-height: 0px;
@@ -547,53 +559,167 @@ div#constructionLegend {
     transition: all 0.5s;
 }
 
-#expandRaster{
-    display:none;
+#layerList {
+    padding-left: 0;
+    margin-bottom: 0px;
+    max-height: 0px;
+    overflow: scroll;
+    overflow-x: hidden;
+    display: block;
+    height: auto;
+    transition: all 0.5s;
 }
-#selectedCriteriaDiv{
-    display:none;
+
+#expandRaster {
+    display: none;
 }
-#headerLogos{
-     float: right;
-     padding-right:5%;
- }
-#headerLogos img{
-   max-height: 120px;
-    padding-right:20px;
+
+#selectedCriteriaDiv {
+    display: none;
 }
+
+#headerLogos {
+    float: left;
+    padding-left: 10%;
+}
+
+#headerLogos img {
+    max-height: 120px;
+    padding-right: 20px;
+}
+
 .slider.slider-horizontal {
     margin: 10px;
 }
+
 #timeMilano .slider.slider-horizontal {
     width: 90%;
 }
 
-#imageTime{
-    margin-top:40px;
-    margin-bottom:20px;
+#imageTime {
+    margin-top: 40px;
+    margin-bottom: 20px;
     background-color: #efefef;
     border-radius: 8px;
     display: none;
     text-align: center;
 }
-#constructionTime{
-    margin-top:40px;
-    margin-bottom:20px;
+
+#constructionTime {
+    margin-top: 40px;
+    margin-bottom: 20px;
     background-color: #efefef;
     border-radius: 8px;
     display: none;
     text-align: center;
-    width:80%;
+    width: 80%;
     margin-left: 10%;
 }
 
-.timeImage{
-    width:28%;
-    padding:2%;
-    maegin:3%;
-    float:left;
+.timeImage {
+    width: 25%;
+    padding: 1%;
+    float: left;
 }
-.timeImage img{
-    border:1px solid #ccc;
-    width:100%;
+
+.timeImage img {
+    border: 1px solid #ccc;
+    width: 100%;
+}
+
+#addMarker {
+    display: none;
+}
+
+#markerMenuOptions {
+    display: none;
+}
+
+#addCantiere {
+    display: none;
+}
+
+.imageForm {
+    max-width: 70%;
+}
+
+
+#milanofocus_logo {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: 150px;
+}
+#registration_form, #poi_form, #login_form {
+    text-align: center;
+}
+#get_location {
+    cursor: pointer;
+    background:none;
+    border:none;
+    margin-bottom: 3px;
+}
+#registration_form_b, #poi_form_b, #login_form_b, #foto_b {
+    /* background-color: rgba(102,244,37,1); */
+    /* border: solid 1px #cbc9c9; */
+    /* border-radius: 3px; */
+    width: auto;
+    /* height: 30px; */
+    margin: 0 auto;
+    display: block;
+    cursor: pointer;
+}
+#foto_b {
+    margin-bottom: 3px;
+}
+#plus_b {
+    background-color: rgba(102,244,37,1);
+    border: solid 1px #cbc9c9;
+    border-radius: 3px;
+    width: auto;
+    margin: 0 auto;
+    cursor: pointer;
+    height: 20px;
+}
+input {
+    border: solid 1px #cbc9c9;
+    border-radius: 3px;
+    margin-bottom: 3px;
+}
+#disturbance_zero, #disturbance_one, #disturbance_two, #disturbance_three {
+    width: 15px;
+    margin-bottom: -4px;
+    cursor: pointer;
+}
+#address_poi_cap {
+    margin-top: 3px;
+    margin-bottom: 7px;
+}
+#address_plus {
+    margin-left: 3px;
+}
+#avviso {
+    display: inline-block;
+    margin-bottom: 3px;
+}
+.ui-menu .ui-menu-item {
+    margin: 0;
+    background-color: white;
+    cursor: pointer;
+    list-style-image: url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7);
+    text-align: left;
+}
+.ui-widget-content {
+    border: 1px solid #aaaaaa;
+    /* color: #222222; */
+     background-color: white !important;
+}
+#ParkingArea label {
+     float: left;
+ }
+.imageface{
+    max-width: 10%;
+}
+#ParkingArea label {
+    float: left;
 }
